@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <fstream>
 //https://en.wikipedia.org/wiki/Wavefront_.obj_file
 
 std::vector<std::string> split_str(std::string str, char target) {
@@ -30,17 +31,35 @@ struct vertex {
 	float w;
 };
 
-
 struct Obj {
+	std::string path;
 	std::vector<vertex> vertices;
 };
 
 class ObjReader {
 public:
-	Obj create_obj(const char& file_path) {
-
+	Obj create_obj(const char* file_path) {
+		Obj* obj = new Obj();
+		this->obj_list.push_back(obj);
+		std::ifstream file;
+		obj->path = file_path;
+		std::vector<std::string> file_str;
+		{
+			std::string tmpstr;
+			file.open(file_path);
+			while (std::getline(file, tmpstr)) {
+				file_str.push_back(tmpstr);
+			}
+			file.close();
+		}
 	}
 	bool clear_objs() { return false; };
+	~ObjReader() {
+		for (size_t i = 0; i < obj_list.size(); i++)
+		{
+			delete obj_list[i];
+		}
+	}
 private:
 	std::vector<Obj*> obj_list;
 };
