@@ -33,6 +33,7 @@ struct vertex {
 
 struct Obj {
 	std::string path;
+	std::vector<std::string> mtllibs;
 	std::vector<vertex> vertices;
 };
 
@@ -51,6 +52,16 @@ public:
 				file_str.push_back(tmpstr);
 			}
 			file.close();
+		}
+		for (size_t i = 0; i < file_str.size(); i++)
+		{
+			if (file_str[i][0] == '#') {
+				continue;
+			}
+			if (file_str[i][0] == 'v') {
+				continue;
+			}
+
 		}
 	}
 	bool clear_objs() { return false; };
