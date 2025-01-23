@@ -33,7 +33,7 @@ struct vertex {
 
 struct Obj {
 	std::string path;
-	std::vector<std::string> mtllibs;
+	std::vector<std::string> mtllibs; //ZDELAT
 	std::vector<vertex> vertices;
 };
 
@@ -59,7 +59,8 @@ public:
 				continue;
 			}
 			if (file_str[i][0] == 'v') {
-				continue;
+				std::vector<std::string> tmpstr = split_str(file_str[i], ' ');
+				// DODELAT
 			}
 
 		}
